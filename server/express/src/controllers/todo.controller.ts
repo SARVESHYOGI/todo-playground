@@ -14,7 +14,7 @@ export const todoController = {
   },
 
   async create(req: Request, res: Response) {
-    const result = await todoService.create(req.body);
+    const result = await todoService.create({ ...req.body, authorId: req.userId! });
     res.json(result);
   },
 

@@ -1,13 +1,14 @@
 // use prisma-8
 
 model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  username  String?
-  name      String?
-  todos     Todo[]
-  createdAt TimestamptzString @default(now())
-  updatedAt temporal.updatedAtString()
+  id           Int      @id @default(autoincrement())
+  email        String   @unique
+  username     String?
+  name         String?
+  passwordHash String?
+  todos        Todo[]
+  createdAt    TimestamptzString @default(now())
+  updatedAt    temporal.updatedAtString()
 }
 
 model Todo {

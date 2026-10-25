@@ -1,4 +1,4 @@
-import { db } from "../prisma/db"
+import { db } from "../prisma/db.ts"
 
 export const todoService = {
   async list() {
