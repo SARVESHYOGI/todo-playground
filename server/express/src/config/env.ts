@@ -22,4 +22,5 @@ export const env = {
   port: process.env.PORT,
   tokenSecret,
   tokenTtlSeconds: Number(process.env.TOKEN_TTL_SECONDS ?? 604800),
+  corsOrigin: process.env.CORS_ORIGIN ?? "*",
 };

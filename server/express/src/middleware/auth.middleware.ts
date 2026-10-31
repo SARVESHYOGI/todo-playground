@@ -16,3 +16,13 @@ export function requireAuth(req: Request, res: Response, next: NextFunction) {
   req.userId = result.userId;
   next();
 }
+
+export function requireSelf(param = "id") {
+  return (req: Request, res: Response, next: NextFunction) => {
+    if (Number(req.params[param]) !== req.userId) {
+      res.status(403).json({ error: "You can only access your own account" });
+      return;
+    }
+    next();
+  };
+}

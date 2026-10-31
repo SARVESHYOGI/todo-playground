@@ -1,12 +1,12 @@
 import { db } from "../prisma/db.ts"
 
 export const todoService = {
-  async list() {
-    return await db.orm.public.Todo.all()
+  async list(authorId: number) {
+    return await db.orm.public.Todo.where({ authorId }).all()
   },
 
-  async getbyId(id: number) {
-    return await db.orm.public.Todo.where({ id }).first()
+  async getbyId(id: number, authorId: number) {
+    return await db.orm.public.Todo.where({ id, authorId }).first()
   },
 
   async create(data: { title: string; description?: string; authorId: number }) {
@@ -17,11 +17,11 @@ export const todoService = {
     })
   },
 
-  async update(id: number, data: { title?: string; description?: string; completed?: boolean }) {
-    return await db.orm.public.Todo.where({ id }).update(data)
+  async update(id: number, authorId: number, data: { title?: string; description?: string; completed?: boolean }) {
+    return await db.orm.public.Todo.where({ id, authorId }).update(data)
   },
 
-  async remove(id: number) {
-    return await db.orm.public.Todo.where({ id }).delete()
+  async remove(id: number, authorId: number) {
+    return await db.orm.public.Todo.where({ id, authorId }).delete()
   }
 }

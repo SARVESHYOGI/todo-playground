@@ -25,10 +25,6 @@ export const userController = {
     res.json(result);
   },
 
-  async list(_req: Request, res: Response) {
-    res.json(await userService.list());
-  },
-
   async getbyId(req: Request, res: Response) {
     const result = await userService.getbyId(Number(req.params.id));
     res.json(result);

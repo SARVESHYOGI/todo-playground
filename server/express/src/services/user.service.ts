@@ -11,10 +11,6 @@ function omitPasswordHash<T extends { passwordHash?: unknown }>(row: T | null) {
 }
 
 export const userService = {
-  async list() {
-    return await db.orm.public.User.select(...PUBLIC_FIELDS).all();
-  },
-
   async getbyId(id: number) {
     return await db.orm.public.User.where({ id }).select(...PUBLIC_FIELDS).first();
   },
