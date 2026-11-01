@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import type { FormEvent } from 'react'
-import { useMe } from '../hooks/useAuth.ts'
-import { useCreateTodo, useDeleteTodo, useTodos, useUpdateTodo } from '../hooks/useTodos.ts'
-import { getErrorMessage, isUnauthorized } from '../api/api.ts'
+import { useMe } from '../hooks/useAuth'
+import { useCreateTodo, useDeleteTodo, useTodos, useUpdateTodo } from '../hooks/useTodos'
+import { getErrorMessage, isUnauthorized } from '../api/api'
 
 export default function TodosScreen({ onLogout }: { onLogout: () => void }) {
   const [title, setTitle] = useState('')

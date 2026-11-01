@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import AuthScreen from './components/AuthScreen.tsx'
-import TodosScreen from './components/TodosScreen.tsx'
-import { clearToken, getToken } from './api/token.ts'
+import AuthScreen from './components/AuthScreen'
+import TodosScreen from './components/TodosScreen'
+import { clearToken, getToken } from './api/token'
 import './App.css'
 
 function App() {

@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import type { FormEvent } from 'react'
-import { useLogin, useRegister } from '../hooks/useAuth.ts'
-import { getErrorMessage } from '../api/api.ts'
-import { setToken } from '../api/token.ts'
+import { useLogin, useRegister } from '../hooks/useAuth'
+import { getErrorMessage } from '../api/api'
+import { setToken } from '../api/token'
 
 type Mode = 'login' | 'register'
 
