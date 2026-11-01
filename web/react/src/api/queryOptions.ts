@@ -3,6 +3,7 @@ import { authApi, todoApi } from './route'
 import { queryKeys } from './queryKeys'
 import type {
   CreateTodoInput,
+  EntityId,
   LoginInput,
   RegisterInput,
   UpdateTodoInput,
@@ -33,10 +34,10 @@ export const createTodoMutationOptions = mutationOptions({
 })
 
 export const updateTodoMutationOptions = mutationOptions({
-  mutationFn: (input: { id: number; data: UpdateTodoInput }) =>
+  mutationFn: (input: { id: EntityId; data: UpdateTodoInput }) =>
     todoApi.update(input.id, input.data),
 })
 
 export const deleteTodoMutationOptions = mutationOptions({
-  mutationFn: (id: number) => todoApi.remove(id),
+  mutationFn: (id: EntityId) => todoApi.remove(id),
 })

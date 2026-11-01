@@ -1,5 +1,34 @@
 # React + TypeScript + Vite
 
+## Backend adapter
+
+The API layer can talk to either backend. Select one with `VITE_API_BACKEND`
+(in a local `.env` or the shell):
+
+| Value | Backend | Default base URL |
+|---|---|---|
+| `express` (default) | `server/express` | `http://localhost:8000` |
+| `fastapi` | `server/fastapi` | `http://localhost:8000` |
+
+Override the base URL with `VITE_API_URL`:
+
+```
+VITE_API_BACKEND=fastapi
+VITE_API_URL=http://localhost:8000
+```
+
+Both backends are consumed through the same domain types (`src/types/api`) and
+`authApi` / `userApi` / `todoApi` (`src/api/route.ts`). The adapters in
+`src/api/backends/` translate each backend's contract — e.g. FastAPI's
+`/api/v1` prefix, form-encoded OAuth2 login, `owner_id`/`created_at` fields,
+`{ data, count }` list envelope, `PATCH` for updates, and 403 (not 401) for an
+invalid token.
+
+If both servers run at once, give them different ports and set `VITE_API_URL`
+to the selected one.
+
+## Vite template notes
+
 This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
 
 Currently, two official plugins are available:
