@@ -37,6 +37,7 @@ htmlcov/
 Thumbs.db
 desktop.ini
 
+.qwen/
 .vscode/
 .idea/
 *.swp
