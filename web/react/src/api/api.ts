@@ -43,4 +43,8 @@ export function getErrorMessage(error: unknown): string {
   return error instanceof Error ? error.message : "Unknown error";
 }
 
+export function isUnauthorized(error: unknown): boolean {
+  return isAxiosError(error) && error.response?.status === 401;
+}
+
 export default api;
