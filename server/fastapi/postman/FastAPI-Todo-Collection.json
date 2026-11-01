@@ -1,0 +1,74 @@
+{
+  "info": {
+    "name": "FastAPI Todo API",
+    "description": "Collection for the FastAPI todo backend",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "url": { "raw": "http://localhost:8000/api/v1/utils/health-check", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["api", "v1", "utils", "health-check"] }
+      }
+    },
+    {
+      "name": "Register",
+      "request": {
+        "method": "POST",
+        "url": { "raw": "http://localhost:8000/api/v1/users/register", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["api", "v1", "users", "register"] },
+        "body": { "mode": "raw", "raw": "{\"email\":\"test@example.com\",\"password\":\"password123\",\"username\":\"test\"}" }
+      }
+    },
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "url": { "raw": "http://localhost:8000/api/v1/login/access-token", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["api", "v1", "login", "access-token"] },
+        "body": { "mode": "formdata", "formdata": [{"key":"username","value":"test@example.com"},{"key":"password","value":"password123"}] }
+      }
+    },
+    {
+      "name": "Create Todo",
+      "request": {
+        "method": "POST",
+        "url": { "raw": "http://localhost:8000/api/v1/todos/", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["api", "v1", "todos", ""] },
+        "header": [{"key":"Authorization","value":"Bearer {{token}}"}],
+        "body": { "mode": "raw", "raw": "{\"title\":\"Buy milk\",\"description\":\"2%\",\"completed\":false}" }
+      }
+    },
+    {
+      "name": "List Todos",
+      "request": {
+        "method": "GET",
+        "url": { "raw": "http://localhost:8000/api/v1/todos/", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["api", "v1", "todos", ""] },
+        "header": [{"key":"Authorization","value":"Bearer {{token}}"}]
+      }
+    },
+    {
+      "name": "Get Todo",
+      "request": {
+        "method": "GET",
+        "url": { "raw": "http://localhost:8000/api/v1/todos/{id}", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["api", "v1", "todos", "{id}"] },
+        "header": [{"key":"Authorization","value":"Bearer {{token}}"}]
+      }
+    },
+    {
+      "name": "Update Todo",
+      "request": {
+        "method": "PATCH",
+        "url": { "raw": "http://localhost:8000/api/v1/todos/{id}", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["api", "v1", "todos", "{id}"] },
+        "header": [{"key":"Authorization","value":"Bearer {{token}}"}],
+        "body": { "mode": "raw", "raw": "{\"completed\":true}" }
+      }
+    },
+    {
+      "name": "Delete Todo",
+      "request": {
+        "method": "DELETE",
+        "url": { "raw": "http://localhost:8000/api/v1/todos/{id}", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["api", "v1", "todos", "{id}"] },
+        "header": [{"key":"Authorization","value":"Bearer {{token}}"}]
+      }
+    }
+  ]
+}
