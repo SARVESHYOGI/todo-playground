@@ -29,10 +29,13 @@ to the selected one.
 
 ## Testing
 
-`npm test` runs [Vitest](https://vitest.dev). The suite in
-`src/api/backends/fastapi.integration.test.ts` drives the real FastAPI adapter
-against a live backend and skips itself automatically when none is reachable,
-so `npm test` stays green without a server:
+`npm test` runs [Vitest](https://vitest.dev). Offline unit tests cover the
+FastAPI response mappers, the Express adapter (with a mocked axios client),
+and the error helpers, so they run without a backend.
+
+The suite in `src/api/backends/fastapi.integration.test.ts` drives the real
+FastAPI adapter against a live backend and skips itself automatically when none
+is reachable, so `npm test` stays green without a server:
 
 ```bash
 # terminal 1

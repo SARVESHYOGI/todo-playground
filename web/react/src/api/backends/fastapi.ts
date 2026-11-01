@@ -37,7 +37,7 @@ const formConfig = {
   headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
 }
 
-function toUser(raw: FastApiUser): User {
+export function toUser(raw: FastApiUser): User {
   return {
     id: raw.id,
     email: raw.email,
@@ -49,7 +49,7 @@ function toUser(raw: FastApiUser): User {
   }
 }
 
-function toTodo(raw: FastApiTodo): Todo {
+export function toTodo(raw: FastApiTodo): Todo {
   return {
     id: raw.id,
     title: raw.title,
