@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import type { FormEvent } from 'react'
-import { authApi } from '../api/route.ts'
+import { useLogin, useRegister } from '../hooks/useAuth.ts'
 import { getErrorMessage } from '../api/api.ts'
 import { setToken } from '../api/token.ts'
 
@@ -12,7 +12,11 @@ export default function AuthScreen({ onAuthenticated }: { onAuthenticated: () =>
   const [password, setPassword] = useState('')
   const [name, setName] = useState('')
   const [error, setError] = useState<string | null>(null)
-  const [busy, setBusy] = useState(false)
+
+  const login = useLogin()
+  const register = useRegister()
+  const busy = login.isPending || register.isPending
+  const isRegister = mode === 'register'
 
   function switchMode() {
     setMode((current) => (current === 'login' ? 'register' : 'login'))
@@ -22,29 +26,21 @@ export default function AuthScreen({ onAuthenticated }: { onAuthenticated: () =>
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     setError(null)
-    setBusy(true)
     try {
-      const result =
-        mode === 'login'
-          ? await authApi.login({ email, password })
-          : await authApi.register({ email, password, name: name || undefined })
+      const result = isRegister
+        ? await register.mutateAsync({ email, password, name: name || undefined })
+        : await login.mutateAsync({ email, password })
       setToken(result.token)
       onAuthenticated()
     } catch (err) {
       setError(getErrorMessage(err))
-    } finally {
-      setBusy(false)
     }
   }
-
-  const isRegister = mode === 'register'
 
   return (
     <section className="auth">
       <h1>{isRegister ? 'Create account' : 'Sign in'}</h1>
-      <p className="muted">
-        {isRegister ? 'Start tracking your todos.' : 'Welcome back.'}
-      </p>
+      <p className="muted">{isRegister ? 'Start tracking your todos.' : 'Welcome back.'}</p>
 
       <form className="stack" onSubmit={handleSubmit}>
         <label>

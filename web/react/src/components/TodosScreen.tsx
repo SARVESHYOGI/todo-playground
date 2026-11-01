@@ -1,56 +1,31 @@
 import { useEffect, useState } from 'react'
 import type { FormEvent } from 'react'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { authApi, todoApi } from '../api/route.ts'
+import { useMe } from '../hooks/useAuth.ts'
+import { useCreateTodo, useDeleteTodo, useTodos, useUpdateTodo } from '../hooks/useTodos.ts'
 import { getErrorMessage, isUnauthorized } from '../api/api.ts'
-import type { Todo } from '../types/api/index.ts'
 
 export default function TodosScreen({ onLogout }: { onLogout: () => void }) {
-  const queryClient = useQueryClient()
   const [title, setTitle] = useState('')
-  const [error, setError] = useState<string | null>(null)
 
-  const me = useQuery({ queryKey: ['me'], queryFn: authApi.me })
-  const todos = useQuery({ queryKey: ['todos'], queryFn: todoApi.list })
+  const me = useMe()
+  const todos = useTodos()
+  const createTodo = useCreateTodo()
+  const updateTodo = useUpdateTodo()
+  const deleteTodo = useDeleteTodo()
 
   useEffect(() => {
     if (isUnauthorized(todos.error)) onLogout()
   }, [todos.error, onLogout])
 
-  function invalidateTodos() {
-    queryClient.invalidateQueries({ queryKey: ['todos'] })
-  }
-
-  const createTodo = useMutation({
-    mutationFn: (input: { title: string }) => todoApi.create(input),
-    onSuccess: () => {
-      setTitle('')
-      invalidateTodos()
-    },
-    onError: (err) => setError(getErrorMessage(err)),
-  })
-
-  const toggleTodo = useMutation({
-    mutationFn: (todo: Todo) => todoApi.update(todo.id, { completed: !todo.completed }),
-    onSuccess: invalidateTodos,
-    onError: (err) => setError(getErrorMessage(err)),
-  })
-
-  const deleteTodo = useMutation({
-    mutationFn: (id: number) => todoApi.remove(id),
-    onSuccess: invalidateTodos,
-    onError: (err) => setError(getErrorMessage(err)),
-  })
-
   function handleAdd(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     const trimmed = title.trim()
     if (!trimmed) return
-    setError(null)
-    createTodo.mutate({ title: trimmed })
+    createTodo.mutate({ title: trimmed }, { onSuccess: () => setTitle('') })
   }
 
   const list = todos.data ?? []
+  const actionError = createTodo.error ?? updateTodo.error ?? deleteTodo.error
 
   return (
     <section className="todos">
@@ -77,9 +52,9 @@ export default function TodosScreen({ onLogout }: { onLogout: () => void }) {
         </button>
       </form>
 
-      {error && (
+      {actionError && (
         <p className="error" role="alert">
-          {error}
+          {getErrorMessage(actionError)}
         </p>
       )}
 
@@ -99,8 +74,8 @@ export default function TodosScreen({ onLogout }: { onLogout: () => void }) {
                 <input
                   type="checkbox"
                   checked={todo.completed}
-                  disabled={toggleTodo.isPending}
-                  onChange={() => toggleTodo.mutate(todo)}
+                  disabled={updateTodo.isPending}
+                  onChange={() => updateTodo.mutate({ id: todo.id, data: { completed: !todo.completed } })}
                 />
                 <span className="todo-title">{todo.title}</span>
               </label>
