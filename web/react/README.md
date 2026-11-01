@@ -27,6 +27,22 @@ invalid token.
 If both servers run at once, give them different ports and set `VITE_API_URL`
 to the selected one.
 
+## Testing
+
+`npm test` runs [Vitest](https://vitest.dev). The suite in
+`src/api/backends/fastapi.integration.test.ts` drives the real FastAPI adapter
+against a live backend and skips itself automatically when none is reachable,
+so `npm test` stays green without a server:
+
+```bash
+# terminal 1
+cd server/fastapi && uv run fastapi dev app/main.py
+# terminal 2
+cd web/react && npm test
+```
+
+Set `FASTAPI_TEST_URL` to target a non-default host/port.
+
 ## Vite template notes
 
 This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
