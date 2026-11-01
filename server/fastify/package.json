@@ -21,9 +21,9 @@
     "fastify-plugin": "^5.0.1"
   },
   "devDependencies": {
-    "@prisma/cli-engine": "^0.7.0",
+    "@prisma/cli-engine": "0.7.0",
     "@types/node": "^26.6.5",
-    "prisma": "^8.0.0-rc.23",
+    "prisma": "8.0.0-rc.23",
     "typescript": "^7.0.2",
     "vitest": "^5.0.5"
   }
