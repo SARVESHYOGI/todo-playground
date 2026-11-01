@@ -49,6 +49,13 @@ uv run ruff check .
 uv run mypy app
 ```
 
+The test suite points the app at an isolated temp SQLite database
+(`tests/conftest.py`), so it runs without a PostgreSQL server.
+
+A Postman collection for manual exploration lives in
+`postman/FastAPI-Todo-Collection.json` (set the `token` variable from the
+login response before calling the todo endpoints).
+
 ## Endpoints (prefix `/api/v1`)
 
 | Method | Path | Auth |
