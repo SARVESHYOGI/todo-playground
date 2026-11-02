@@ -80,5 +80,6 @@ then delete the rows and close the pool, so they need a reachable
 Send the token as `Authorization: Bearer <token>`.
 
 A Postman collection for manual exploration lives in
-`postman/Fastify-Todo-Collection.json` (set the `token` variable from the
-register/login response before calling the todo endpoints).
+`postman/Fastify-Todo-Collection.json`. It defaults to `http://localhost:3001`;
+run `Users > Register` or `Users > Login` first, since their test scripts fill
+the `token` and `userId` collection variables automatically.
