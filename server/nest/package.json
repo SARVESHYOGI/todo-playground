@@ -1,0 +1,38 @@
+{
+  "name": "nest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/main.js",
+  "scripts": {
+    "build": "swc src -d dist --strip-leading-paths --copy-files --config-file .swcrc.build",
+    "start": "node dist/main.js",
+    "dev": "swc src -d dist --strip-leading-paths --copy-files --config-file .swcrc.build --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "contract:emit": "prisma contract emit"
+  },
+  "dependencies": {
+    "@dotenvx/dotenvx": "^2.38.0",
+    "@nestjs/common": "^11.0.0",
+    "@nestjs/core": "^11.0.0",
+    "@nestjs/platform-express": "^11.0.0",
+    "@prisma/client": "^7.10.1",
+    "@prisma/orm-postgres": "8.0.0-rc.18",
+    "dotenv": "^18.0.8",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.1"
+  },
+  "devDependencies": {
+    "@prisma/cli-engine": "0.7.0",
+    "@swc/cli": "^0.7.0",
+    "@swc/core": "^1.11.0",
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.6.5",
+    "@types/supertest": "^7.2.1",
+    "prisma": "8.0.0-rc.23",
+    "supertest": "^7.3.1",
+    "typescript": "^7.0.2",
+    "unplugin-swc": "^1.5.1",
+    "vitest": "^5.0.5"
+  }
+}
